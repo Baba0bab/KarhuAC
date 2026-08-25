@@ -301,7 +301,6 @@ public final class Karhu extends JavaPlugin {
         }
 
         storage.init();
-        storage.checkFiles();
 
         /*
          * Chunk loading

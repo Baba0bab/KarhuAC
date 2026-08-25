@@ -241,23 +241,5 @@ public class MongoStorage implements Storage {
     public void removeFromBanWave(String uuid) {
         loggedBanwavePlayers.findOneAndDelete(eq("player", uuid));
     }
-
-    @Override
-    public void checkFiles() {
-        try {
-            String acname = "Karhu";
-            if (Bukkit.getServer().getPluginManager().isPluginEnabled(acname + "L" + "oad" + "er")) {
-                if (NetUtil.accessFile() != 0) {
-                    Tasker.runTaskLater(() -> {
-                        System.exit(0);
-                    }, 200L);
-                }
-            } else {
-                Tasker.runTaskLater(() -> {
-                    System.exit(0);
-                }, 200L);
-            }
-        } catch (Exception ignored) { }
-    }
 }
 

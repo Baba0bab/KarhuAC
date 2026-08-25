@@ -1,29 +1,31 @@
 package me.liwk.karhu.replay.storage;
 
-import ac.karhu.karhuloader.KarhuLoader;
-import com.github.retrooper.packetevents.protocol.world.chunk.BaseChunk;
 import com.github.retrooper.packetevents.protocol.world.chunk.Column;
-import com.github.retrooper.packetevents.protocol.world.chunk.TileEntity;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import me.liwk.karhu.Karhu;
 import me.liwk.karhu.replay.packet.PacketData;
 import me.liwk.karhu.replay.session.ReplaySession;
 
-import java.io.*;
-import java.lang.reflect.Type;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ReplayStorage {
 
-    private final KarhuLoader plugin;
+    private final Karhu plugin;
     private final Path replaysDirectory;
     private final Gson gson;
 
     public ReplayStorage(Karhu plugin) {
-        this.plugin = plugin.getPlug();
+        this.plugin = plugin;
         this.replaysDirectory = this.plugin.getDataFolder().toPath().resolve("replays");
         this.gson = new GsonBuilder()
                 .setPrettyPrinting()

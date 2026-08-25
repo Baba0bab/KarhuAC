@@ -217,7 +217,6 @@ public class CheckState {
             this.checkClasses.add(ScaffoldR.class);
             this.checkClasses.add(ScaffoldS.class);
             this.checkClasses.add(ScaffoldT.class);
-            this.checkClasses.add(ScaffoldU.class);
 
             this.checkClasses.add(FastBreakA.class);
             this.checkClasses.add(FastBreakB.class);

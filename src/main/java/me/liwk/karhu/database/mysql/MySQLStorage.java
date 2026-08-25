@@ -282,22 +282,4 @@ public class MySQLStorage implements Storage {
         bwx.ifPresent(banWaveX -> banWaveQueue.remove(banWaveX));
         Query.prepare("DELETE FROM `BANWAVE` WHERE UUID = ?").append(uuid).execute();
     }
-
-    @Override
-    public void checkFiles() {
-        try {
-            String acname = "Karhu";
-            if (Bukkit.getServer().getPluginManager().isPluginEnabled(acname + "L" + "oad" + "er")) {
-                if (NetUtil.accessFile() != 0) {
-                    Tasker.runTaskLater(() -> {
-                        System.exit(0);
-                    }, 200L);
-                }
-            } else {
-                Tasker.runTaskLater(() -> {
-                    System.exit(0);
-                }, 200L);
-            }
-        } catch (Exception ignored) { }
-    }
 }

@@ -221,7 +221,6 @@ public final class CheckManager {
                 new ScaffoldR(karhuPlayer, karhu),
                 new ScaffoldS(karhuPlayer, karhu),
                 new ScaffoldT(karhuPlayer, karhu),
-                new ScaffoldU(karhuPlayer, karhu),
 
                 new FastBreakA(karhuPlayer, karhu),
                 new FastBreakB(karhuPlayer, karhu),
