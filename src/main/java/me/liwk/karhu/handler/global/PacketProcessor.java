@@ -464,7 +464,7 @@ public final class PacketProcessor extends SimplePacketListenerAbstract {
 
                     if (data.invalidMovementTicks > 100) {
                         groundSet.setY(groundSet.getY() - 0.1);
-                        safeSet.setY(groundSet.getY() - 0.1);
+                        safeSet.setY(safeSet.getY() - 0.1);
                         data.invalidMovementTicks = 0;
                     }
 
