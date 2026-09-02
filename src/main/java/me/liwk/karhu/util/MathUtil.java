@@ -420,35 +420,35 @@ public final class MathUtil {
     }
 
     public static double getStandardDeviation(Collection<? extends Number> doubles) {
-        double average = 0.0;
+        double total = 0.0;
         double std = 0.0;
 
         double size = doubles.size();
 
         for (final Number number : doubles) {
-            average += number.doubleValue();
+            total += number.doubleValue();
         }
 
-        double nigger = average / size;
+        double avg = total / size;
         for (Number doubler : doubles) {
-            std += FastMath.pow(doubler.doubleValue() - nigger, 2.0);
+            std += FastMath.pow(doubler.doubleValue() - avg, 2.0);
         }
         return FastMath.sqrt(std / size);
     }
 
     public static double getStandardDeviation(double[] doubles) {
-        double average = 0.0;
+        double total = 0.0;
         double std = 0.0;
 
         double size = doubles.length;
 
         for (double number : doubles) {
-            average += number;
+            total += number;
         }
 
-        double nigger = average / size;
+        double avg = total / size;
         for (double doubler : doubles) {
-            std += FastMath.pow(doubler - nigger, 2.0);
+            std += FastMath.pow(doubler - avg, 2.0);
         }
         return FastMath.sqrt(std / size);
     }
