@@ -464,7 +464,7 @@ public final class PacketProcessor extends SimplePacketListenerAbstract {
 
                     if (data.invalidMovementTicks > 100) {
                         groundSet.setY(groundSet.getY() - 0.1);
-                        safeSet.setY(groundSet.getY() - 0.1);
+                        safeSet.setY(safeSet.getY() - 0.1);
                         data.invalidMovementTicks = 0;
                     }
 
@@ -1163,7 +1163,7 @@ public final class PacketProcessor extends SimplePacketListenerAbstract {
                                         Block block = Karhu.getInstance().getChunkManager().getChunkBlockAt(blockIn);
 
                                         if (block != null) {
-                                            if (MaterialChecks.ONETAPS.contains(blockIn.getBlock().getType())
+                                            if (MaterialChecks.ONETAPS.contains(block.getType())
                                                     && data.getLocation().toVector().distance(position) <= 2) {
                                                 data.setFastDigTicks(data.getTotalTicks());
                                             }

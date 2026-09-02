@@ -79,6 +79,13 @@ public class ReflectionUtil {
             if (Karhu.SERVER_VERSION.isOlderThanOrEquals(ServerVersion.V_1_7_10)) {
                 Object world = getWorldHandle(block.getWorld());
                 return getMethodValue(getMethod(worldServer, "getType", int.class, int.class, int.class), world, block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
+            } else if (Karhu.SERVER_VERSION.isOlderThanOrEquals(ServerVersion.V_1_12_2)) {
+                // Read the state out of the chunk the block already belongs to. World#getType resolves
+                // the chunk through the chunk provider instead, which loads and generates chunks, and
+                // the checks that end up here run on netty threads.
+                Object bPos = blockPosition.getConstructor(int.class, int.class, int.class).newInstance(block.getX(), block.getY(), block.getZ());
+                Object chunk = getMethodValue(getMethod(getCBClass("CraftChunk"), "getHandle"), block.getChunk());
+                return getMethodValue(getMethod(getNMSClass("Chunk"), "getBlockData", blockPosition), chunk, bPos);
             } else {
                 Object bPos = blockPosition.getConstructor(int.class, int.class, int.class).newInstance(block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
                 Object world = getWorldHandle(block.getWorld());
