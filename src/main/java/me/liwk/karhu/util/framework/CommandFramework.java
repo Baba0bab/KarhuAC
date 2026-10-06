@@ -13,7 +13,6 @@ import org.bukkit.help.HelpTopic;
 import org.bukkit.help.HelpTopicComparator;
 import org.bukkit.help.IndexHelpTopic;
 import org.bukkit.plugin.SimplePluginManager;
-import org.spigotmc.SpigotConfig;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -74,7 +73,7 @@ public class CommandFramework implements CommandExecutor {
                     Player player = (Player) sender;
                     if (!player.hasPermission("karhu.staff") && !player.isOp() && !AlertsManager.ADMINS.contains(player.getUniqueId())) {
                         if(cmdLabel.equalsIgnoreCase("karhu")) {
-                            sender.sendMessage(SpigotConfig.unknownCommandMessage);
+                            sender.sendMessage(getUnknownCommandMessage());
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Karhu.getInstance().getConfigManager().getNoPermission()));
                         }
@@ -186,5 +185,13 @@ public class CommandFramework implements CommandExecutor {
         }
         return directoryToBeDeleted.delete();
     }
-}
 
+    private static String getUnknownCommandMessage() {
+        // SpigotConfig is server-side only, so resolve it reflectively to avoid a compile-time dependency on the server jar
+        try {
+            return (String) Class.forName("org.spigotmc.SpigotConfig").getField("unknownCommandMessage").get(null);
+        } catch (ReflectiveOperationException | ClassCastException e) {
+            return "Unknown command. Type \"/help\" for help.";
+        }
+    }
+}
