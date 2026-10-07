@@ -27,22 +27,6 @@ import java.util.UUID;
 
 public final class BukkitHandler implements Listener {
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onJoin(PlayerJoinEvent event) {
-        long now = System.nanoTime();
-        Player player = event.getPlayer();
-
-
-        /*Bukkit.getScheduler().runTaskLater(Karhu.getInstance(), () -> {
-
-            if (AlertsManager.ADMINS.contains(player.getUniqueId())) {
-                player.sendMessage("§7§m--------------------------------\n" +
-                        "§fThis server is using §b§lKarhu (" + Karhu.getInstance().getBuild() +")\n" +
-                        "\n§7§m--------------------------------");
-            }
-        }, 3 * 20L);*/
-    }
-
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoinMonitor(PlayerJoinEvent event) {
         Player player = event.getPlayer();
