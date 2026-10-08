@@ -1,7 +1,6 @@
 package me.liwk.karhu.util.framework;
 
 import me.liwk.karhu.Karhu;
-import me.liwk.karhu.manager.alert.AlertsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -71,7 +70,7 @@ public class CommandFramework implements CommandExecutor {
 
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
-                    if (!player.hasPermission("karhu.staff") && !player.isOp() && !AlertsManager.ADMINS.contains(player.getUniqueId())) {
+                    if (!player.hasPermission("karhu.staff") && !player.isOp()) {
                         if(cmdLabel.equalsIgnoreCase("karhu")) {
                             sender.sendMessage(getUnknownCommandMessage());
                         } else {
