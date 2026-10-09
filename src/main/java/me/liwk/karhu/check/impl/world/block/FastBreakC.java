@@ -14,6 +14,7 @@ import me.liwk.karhu.handler.collision.type.MaterialChecks;
 import me.liwk.karhu.util.ReflectionUtil;
 import me.liwk.karhu.util.location.CustomLocation;
 import me.liwk.karhu.util.mc.MathHelper;
+import me.liwk.karhu.util.player.BlockUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -172,7 +173,7 @@ public final class FastBreakC extends PacketCheck {
         if(block == null) return false;
 
         if (MaterialChecks.WATER.contains(block.getType())) {
-            float f = testWaterHeight(block.getData()) - 0.11111111F;
+            float f = testWaterHeight(BlockUtil.getLiquidLevel(block)) - 0.11111111F;
             float f1 = (float)(j + 1) - f;
             return d0 < (double)f1;
         } else {

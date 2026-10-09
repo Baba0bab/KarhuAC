@@ -370,7 +370,7 @@ public final class BoundingBox implements Cloneable {
                 || MaterialChecks.WATER.contains(material)
                 || MaterialChecks.SEASHIT.contains(material)
                 || extraCheck) {
-            int data = block.getData();
+            int data = BlockUtil.getLiquidLevel(block);
             float height = getWaterHeight(data);
             double d0 = (float) (y + 1) - height;
 
@@ -405,7 +405,7 @@ public final class BoundingBox implements Cloneable {
                 || MaterialChecks.WATER.contains(material)
                 || MaterialChecks.SEASHIT.contains(material)
                 || waterLogged) {
-            int data = block.getData();
+            int data = BlockUtil.getLiquidLevel(block);
             double height = getWaterHeight(data);
 
             if (karhuPlayer.getClientVersion().isOlderThan(ClientVersion.V_1_14))
@@ -429,7 +429,7 @@ public final class BoundingBox implements Cloneable {
         Material material = block.getType();
 
         if (MaterialChecks.LAVA.contains(material)) {
-            int data = block.getData();
+            int data = BlockUtil.getLiquidLevel(block);
             double height = getWaterHeight(data);
 
             if (karhuPlayer.getClientVersion().isOlderThan(ClientVersion.V_1_14))

@@ -565,9 +565,12 @@ public class DesyncedBlockHandler {
                         if(!checkClientSideBlock(blockLoc.toVector(), 2)) {
                             Vector3i vector3i
                                     = new Vector3i(blockLoc.getBlockX(), blockLoc.getBlockY(), blockLoc.getBlockZ());
-                            PlayerUtil.sendPacket(data.getBukkitPlayer(), new WrapperPlayServerBlockChange(vector3i,
-                                    SpigotConversionUtil.fromBukkitMaterialData(new MaterialData(block.getType())).getGlobalId()
-                            ));
+                            // MaterialData goes through CraftLegacy on 1.13+ (slow, and drops the block state:
+                            // stairs/slabs/doors would be resent in their default shape)
+                            int globalId = Karhu.SERVER_VERSION.isNewerThanOrEquals(ServerVersion.V_1_13)
+                                    ? SpigotConversionUtil.fromBukkitBlockData(block.getBlockData()).getGlobalId()
+                                    : SpigotConversionUtil.fromBukkitMaterialData(new MaterialData(block.getType())).getGlobalId();
+                            PlayerUtil.sendPacket(data.getBukkitPlayer(), new WrapperPlayServerBlockChange(vector3i, globalId));
                         }
                     }
                 }
