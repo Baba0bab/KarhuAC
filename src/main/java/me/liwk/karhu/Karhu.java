@@ -229,6 +229,10 @@ public final class Karhu extends JavaPlugin {
                 .getEventManager()
                 .registerListener(new PacketProcessor(this));
 
+        // init() registers PacketEvents' join listener, which binds each Bukkit Player to its
+        // channel. Without it event.getPlayer() is always null and KarhuPlayer#bukkitPlayer is never set.
+        PacketEvents.getAPI().init();
+
         printCool("&b> &fPacketEvents loaded " + SERVER_VERSION);
 
         registerBukkitListeners();
@@ -574,6 +578,9 @@ public final class Karhu extends JavaPlugin {
         PacketEvents.setAPI(
                 SpigotPacketEventsBuilder.build(this)
         );
+
+        // PacketEvents is shaded, its "new version available" notices are meaningless to server owners
+        PacketEvents.getAPI().getSettings().checkForUpdates(false);
 
         PacketEvents.getAPI().load();
 

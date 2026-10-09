@@ -33,6 +33,8 @@ public class SimulationHandler {
     @Getter
     private int scenarioAmount, edgeSneakTick;
 
+    private float sneakMultiplier;
+
     @Getter
     @Setter
     private float knownInputF, knownInputS;
@@ -47,6 +49,12 @@ public class SimulationHandler {
 
         boolean onGround = data.isLastOnGroundPacket();
         float yaw = data.getLocation().getYaw();
+
+        // Read once per movement rather than once per bruteforced scenario
+        sneakMultiplier = 0.3f;
+        if (data.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_19) && data.getBukkitPlayer() != null) {
+            sneakMultiplier = MathUtil.clampFloat(0.3F + (MovementUtils.getSwiftSneakevel(data.getBukkitPlayer()) * 0.15F), 0f, 1f);
+        }
 
         // Reset all instance variables that will be used
         if (!test) {
@@ -102,12 +110,8 @@ public class SimulationHandler {
                 double currentMoveStrafe = moveStrafe;
 
                 if (sneaking) {
-                    float multiplier = 0.3f;
-                    if (data.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_19)) {
-                        multiplier = MathUtil.clampFloat(0.3F + (MovementUtils.getSwiftSneakevel(data.getBukkitPlayer()) * 0.15F), 0f, 1f);
-                    }
-                    currentMoveForward = currentMoveForward * multiplier;
-                    currentMoveStrafe = currentMoveStrafe * multiplier;
+                    currentMoveForward = currentMoveForward * sneakMultiplier;
+                    currentMoveStrafe = currentMoveStrafe * sneakMultiplier;
                 }
 
                 float forward = (float) currentMoveForward;
